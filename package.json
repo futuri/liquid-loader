@@ -56,7 +56,8 @@
   },
   "dependencies": {
     "klona": "^2.0.4",
-    "neo-async": "^2.6.2"
+    "neo-async": "^2.6.2",
+    "liquidjs": "^9.25.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
