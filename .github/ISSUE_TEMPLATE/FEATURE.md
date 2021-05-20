@@ -18,7 +18,7 @@ about: Suggest an idea for this project
 - Node Version:
 - NPM Version:
 - webpack Version:
-- sass-loader Version:
+- liquid-loader Version:
 
 ### Feature Proposal
 

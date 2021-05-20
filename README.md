@@ -1,5 +1,9 @@
 <div align="center">
   <img height="170"
+    src="https://cdn.shopify.com/s/files/1/0229/0839/files/An-overview-of-Liquid-2016.jpg">
+</div>
+<div align="center">
+  <img height="170"
     src="https://worldvectorlogo.com/logos/sass-1.svg">
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200"
@@ -7,27 +11,20 @@
   </a>
 </div>
 
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![deps][deps]][deps-url]
-[![tests][tests]][tests-url]
-[![coverage][cover]][cover-url]
-[![chat][chat]][chat-url]
-[![size][size]][size-url]
 
-# sass-loader
+# liquid-loader
 
-Loads a Sass/SCSS file and compiles it to CSS.
+Loads a Sass/SCSS/Liquid file and compiles it to CSS.
 
 ## Getting Started
 
-To begin, you'll need to install `sass-loader`:
+To begin, you'll need to install `liquid-loader`:
 
 ```console
-npm install sass-loader sass webpack --save-dev
+npm install liquid-loader sass webpack --save-dev
 ```
 
-`sass-loader` requires you to install either [Dart Sass](https://github.com/sass/dart-sass) or [Node Sass](https://github.com/sass/node-sass) on your own (more documentation can be found below).
+`liquid-loader` requires you to install either [Dart Sass](https://github.com/sass/dart-sass) or [Node Sass](https://github.com/sass/node-sass) on your own (more documentation can be found below).
 
 This allows you to control the versions of all your dependencies, and to choose which Sass implementation to use.
 
@@ -35,20 +32,20 @@ This allows you to control the versions of all your dependencies, and to choose 
 
 > ⚠ [Node Sass](https://github.com/sass/node-sass) does not work with [Yarn PnP](https://classic.yarnpkg.com/en/docs/pnp/) feature and doesn't support [@use rule](https://sass-lang.com/documentation/at-rules/use).
 
-Chain the `sass-loader` with the [css-loader](https://github.com/webpack-contrib/css-loader) and the [style-loader](https://github.com/webpack-contrib/style-loader) to immediately apply all styles to the DOM or the [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) to extract it into a separate file.
+Chain the `liquid-loader` with the [css-loader](https://github.com/futuri/css-loader) and the [style-loader](https://github.com/futuri/style-loader) to immediately apply all styles to the DOM or the [mini-css-extract-plugin](https://github.com/futuri/mini-css-extract-plugin) to extract it into a separate file.
 
 Then add the loader to your Webpack configuration. For example:
 
 **app.js**
 
 ```js
-import "./style.scss";
+import "./style.scss.liquid";
 ```
 
-**style.scss**
+**style.scss-liquid**
 
 ```scss
-$body-color: red;
+$body-color: {{ color }};
 
 body {
   color: $body-color;
@@ -69,7 +66,7 @@ module.exports = {
           // Translates CSS into CommonJS
           "css-loader",
           // Compiles Sass to CSS
-          "sass-loader",
+          "liquid-loader",
         ],
       },
     ],
@@ -83,7 +80,7 @@ Finally run `webpack` via your preferred method.
 
 Webpack provides an [advanced mechanism to resolve files](https://webpack.js.org/concepts/module-resolution/).
 
-The `sass-loader` uses Sass's custom importer feature to pass all queries to the Webpack resolving engine.
+The `liquid-loader` uses Sass's custom importer feature to pass all queries to the Webpack resolving engine.
 Thus you can import your Sass modules from `node_modules`.
 
 ```scss
@@ -114,7 +111,7 @@ You will be disrupted by this first issue. It is natural to expect relative refe
 
 Thankfully there are a two solutions to this problem:
 
-- Add the missing url rewriting using the [resolve-url-loader](https://github.com/bholloway/resolve-url-loader). Place it before `sass-loader` in the loader chain.
+- Add the missing url rewriting using the [resolve-url-loader](https://github.com/bholloway/resolve-url-loader). Place it before `liquid-loader` in the loader chain.
 - Library authors usually provide a variable to modify the asset path. [bootstrap-sass](https://github.com/twbs/bootstrap-sass) for example has an `$icon-font-path`.
 
 ## Options
@@ -137,33 +134,33 @@ The special `implementation` option determines which implementation of Sass to u
 By default the loader resolve the implementation based on your dependencies.
 Just add required implementation to `package.json` (`sass` or `node-sass` package) and install dependencies.
 
-Example where the `sass-loader` loader uses the `sass` (`dart-sass`) implementation:
+Example where the `liquid-loader` loader uses the `sass` (`dart-sass`) implementation:
 
 **package.json**
 
 ```json
 {
   "devDependencies": {
-    "sass-loader": "^7.2.0",
+    "liquid-loader": "^0.0.1",
     "sass": "^1.22.10"
   }
 }
 ```
 
-Example where the `sass-loader` loader uses the `node-sass` implementation:
+Example where the `liquid-loader` loader uses the `node-sass` implementation:
 
 **package.json**
 
 ```json
 {
   "devDependencies": {
-    "sass-loader": "^7.2.0",
+    "liquid-loader": "^0.0.1",
     "node-sass": "^5.0.0"
   }
 }
 ```
 
-Beware the situation when `node-sass` and `sass` were installed! By default the `sass-loader` prefers `sass`.
+Beware the situation when `node-sass` and `sass` were installed! By default the `liquid-loader` prefers `sass`.
 In order to avoid this situation you can use the `implementation` option.
 
 The `implementation` options either accepts `sass` (`Dart Sass`) or `node-sass` as a module.
@@ -180,7 +177,7 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               // Prefer `dart-sass`
               implementation: require("sass"),
@@ -205,7 +202,7 @@ We automatically inject the [`fibers`](https://github.com/laverdet/node-fibers) 
 ```json
 {
   "devDependencies": {
-    "sass-loader": "^7.2.0",
+    "liquid-loader": "^0.0.1",
     "sass": "^1.22.10",
     "fibers": "^4.0.1"
   }
@@ -226,8 +223,9 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
+              settingsData: "../config/settings_data.json",
               implementation: require("sass"),
               sassOptions: {
                 fiber: false,
@@ -255,8 +253,9 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
+              settingsData: "../config/settings_data.json",
               implementation: require("sass"),
               sassOptions: {
                 fiber: require("fibers"),
@@ -281,7 +280,7 @@ Options for [Dart Sass](http://sass-lang.com/dart-sass) or [Node Sass](https://g
 
 > ℹ️ Options such as `data` and `file` are unavailable and will be ignored.
 
-> ℹ We recommend not to set the `outFile`, `sourceMapContents`, `sourceMapEmbed`, `sourceMapRoot` options because `sass-loader` automatically sets these options when the `sourceMap` option is `true`.
+> ℹ We recommend not to set the `outFile`, `sourceMapContents`, `sourceMapEmbed`, `sourceMapRoot` options because `liquid-loader` automatically sets these options when the `sourceMap` option is `true`.
 
 > ℹ️ Access to the [loader context](https://webpack.js.org/api/loaders/#the-loader-context) inside the custom importer can be done using the `this.webpackLoaderContext` property.
 
@@ -308,8 +307,9 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
+              settingsData: "../config/settings_data.json",
               sassOptions: {
                 indentWidth: 4,
                 includePaths: ["absolute/path/a", "absolute/path/b"],
@@ -337,8 +337,9 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
+              settingsData: "../config/settings_data.json",
               sassOptions: (loaderContext) => {
                 // More information about available properties https://webpack.js.org/api/loaders/
                 const { resourcePath, rootContext } = loaderContext;
@@ -392,7 +393,7 @@ module.exports = {
             },
           },
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               sourceMap: true,
             },
@@ -420,7 +421,7 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               sourceMap: true,
               sassOptions: {
@@ -441,7 +442,7 @@ Type: `String|Function`
 Default: `undefined`
 
 Prepends `Sass`/`SCSS` code before the actual entry file.
-In this case, the `sass-loader` will not override the `data` option but just **prepend** the entry's content.
+In this case, the `liquid-loader` will not override the `data` option but just **prepend** the entry's content.
 
 This is especially useful when some of your Sass variables depend on the environment:
 
@@ -457,7 +458,7 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               additionalData: "$env: " + process.env.NODE_ENV + ";",
             },
@@ -483,7 +484,7 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               additionalData: (content, loaderContext) => {
                 // More information about available properties https://webpack.js.org/api/loaders/
@@ -517,7 +518,7 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               additionalData: async (content, loaderContext) => {
                 // More information about available properties https://webpack.js.org/api/loaders/
@@ -561,7 +562,7 @@ module.exports = {
           "style-loader",
           "css-loader",
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               webpackImporter: false,
             },
@@ -581,7 +582,7 @@ For production builds it's recommended to extract the CSS from your bundle being
 
 There are two possibilities to extract a style sheet from the bundle:
 
-- [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
+- [mini-css-extract-plugin](https://github.com/futuri/mini-css-extract-plugin)
 - [extract-loader](https://github.com/peerigon/extract-loader) (simpler, but specialized on the css-loader's output)
 
 **webpack.config.js**
@@ -600,7 +601,7 @@ module.exports = {
             ? "style-loader"
             : MiniCssExtractPlugin.loader,
           "css-loader",
-          "sass-loader",
+          "liquid-loader",
         ],
       },
     ],
@@ -620,7 +621,7 @@ module.exports = {
 
 Enables/Disables generation of source maps.
 
-To enable CSS source maps, you'll need to pass the `sourceMap` option to the `sass-loader` _and_ the css-loader.
+To enable CSS source maps, you'll need to pass the `sourceMap` option to the `liquid-loader` _and_ the css-loader.
 
 **webpack.config.js**
 
@@ -640,7 +641,7 @@ module.exports = {
             },
           },
           {
-            loader: "sass-loader",
+            loader: "liquid-loader",
             options: {
               sourceMap: true,
             },
@@ -652,7 +653,7 @@ module.exports = {
 };
 ```
 
-If you want to edit the original Sass files inside Chrome, [there's a good blog post](https://medium.com/@toolmantim/getting-started-with-css-sourcemaps-and-in-browser-sass-editing-b4daab987fb0). Checkout [test/sourceMap](https://github.com/webpack-contrib/sass-loader/tree/master/test) for a running example.
+If you want to edit the original Sass files inside Chrome, [there's a good blog post](https://medium.com/@toolmantim/getting-started-with-css-sourcemaps-and-in-browser-sass-editing-b4daab987fb0). Checkout [test/sourceMap](https://github.com/futuri/liquid-loader/tree/master/test) for a running example.
 
 ## Contributing
 
@@ -663,18 +664,3 @@ Please take a moment to read our contributing guidelines if you haven't yet done
 ## License
 
 [MIT](./LICENSE)
-
-[npm]: https://img.shields.io/npm/v/sass-loader.svg
-[npm-url]: https://npmjs.com/package/sass-loader
-[node]: https://img.shields.io/node/v/sass-loader.svg
-[node-url]: https://nodejs.org
-[deps]: https://david-dm.org/webpack-contrib/sass-loader.svg
-[deps-url]: https://david-dm.org/webpack-contrib/sass-loader
-[tests]: https://github.com/webpack-contrib/sass-loader/workflows/sass-loader/badge.svg
-[tests-url]: https://github.com/webpack-contrib/sass-loader/actions
-[cover]: https://codecov.io/gh/webpack-contrib/sass-loader/branch/master/graph/badge.svg
-[cover-url]: https://codecov.io/gh/webpack-contrib/sass-loader
-[chat]: https://badges.gitter.im/webpack/webpack.svg
-[chat-url]: https://gitter.im/webpack/webpack
-[size]: https://packagephobia.now.sh/badge?p=sass-loader
-[size-url]: https://packagephobia.now.sh/result?p=sass-loader

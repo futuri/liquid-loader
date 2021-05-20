@@ -1,12 +1,12 @@
 {
-  "name": "sass-loader",
-  "version": "11.1.1",
+  "name": "liquid-loader",
+  "version": "0.0.1",
   "description": "Sass loader for webpack",
   "license": "MIT",
-  "repository": "webpack-contrib/sass-loader",
+  "repository": "futuri/liquid-loader",
   "author": "J. Tangelder",
-  "homepage": "https://github.com/webpack-contrib/sass-loader",
-  "bugs": "https://github.com/webpack-contrib/sass-loader/issues",
+  "homepage": "https://github.com/futuri/liquid-loader",
+  "bugs": "https://github.com/futuri/liquid-loader/issues",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/webpack"
@@ -82,6 +82,7 @@
     "husky": "^6.0.0",
     "jest": "^26.6.3",
     "lint-staged": "^11.0.0",
+    "liquidjs": "^9.25.0",
     "material-components-web": "^8.0.0",
     "memfs": "^3.2.2",
     "node-sass": "^6.0.0",
@@ -95,6 +96,7 @@
     "webpack": "^5.36.2"
   },
   "keywords": [
+    "liquid",
     "sass",
     "libsass",
     "webpack",

@@ -7,11 +7,16 @@ import {
   getWebpackImporter,
   getRenderFunctionFromSassImplementation,
   normalizeSourceMap,
+  getSettingsData,
 } from "./utils";
 import SassError from "./SassError";
 
+var { Liquid } = require('liquidjs');
+
+var liquid = new Liquid();
+
 /**
- * The sass-loader makes node-sass and dart-sass available to webpack modules.
+ * The liquid-loader makes node-sass and dart-sass available to webpack modules.
  *
  * @this {object}
  * @param {string} content
@@ -26,6 +31,10 @@ async function loader(content) {
 
     return;
   }
+
+  const settings_data = getSettingsData(this, options.settingsData);
+
+  content = await liquid.parseAndRender(content, settings_data);
 
   const useSourceMap =
     typeof options.sourceMap === "boolean" ? options.sourceMap : this.sourceMap;

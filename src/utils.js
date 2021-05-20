@@ -4,6 +4,8 @@ import path from "path";
 import { klona } from "klona/full";
 import async from "neo-async";
 
+const fs = require('fs');
+
 function getDefaultSassImplementation() {
   let sassImplPkg = "sass";
 
@@ -568,6 +570,23 @@ function normalizeSourceMap(map, rootContext) {
   return newMap;
 }
 
+function getSettingsData(loaderContext, settingsData) {
+
+  const { resourcePath } = loaderContext;
+  
+  const dirname = path.dirname(resourcePath);
+  
+  let file = path.resolve(dirname + "/" + settingsData);
+
+  let data = fs.readFileSync(file);
+
+  let settings_data = JSON.parse(data);
+
+  return {
+    settings: settings_data.current
+  }
+}
+
 export {
   getSassImplementation,
   getSassOptions,
@@ -576,4 +595,5 @@ export {
   getRenderFunctionFromSassImplementation,
   normalizeSourceMap,
   isSupportedFibers,
+  getSettingsData
 };

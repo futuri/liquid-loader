@@ -1,4 +1,4 @@
-name: sass-loader
+name: liquid-loader
 
 on:
   push:

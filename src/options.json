@@ -3,11 +3,11 @@
   "type": "object",
   "properties": {
     "implementation": {
-      "description": "The implementation of the sass to be used (https://github.com/webpack-contrib/sass-loader#implementation).",
+      "description": "The implementation of the sass to be used (https://github.com/futuri/liquid-loader#implementation).",
       "type": "object"
     },
     "sassOptions": {
-      "description": "Options for `node-sass` or `sass` (`Dart Sass`) implementation. (https://github.com/webpack-contrib/sass-loader#implementation).",
+      "description": "Options for `node-sass` or `sass` (`Dart Sass`) implementation. (https://github.com/futuri/liquid-loader#implementation).",
       "anyOf": [
         {
           "type": "object",
@@ -19,7 +19,7 @@
       ]
     },
     "additionalData": {
-      "description": "Prepends/Appends `Sass`/`SCSS` code before the actual entry file (https://github.com/webpack-contrib/sass-loader#additionaldata).",
+      "description": "Prepends/Appends `Sass`/`SCSS` code before the actual entry file (https://github.com/futuri/liquid-loader#additionaldata).",
       "anyOf": [
         {
           "type": "string"
@@ -30,12 +30,16 @@
       ]
     },
     "sourceMap": {
-      "description": "Enables/Disables generation of source maps (https://github.com/webpack-contrib/sass-loader#sourcemap).",
+      "description": "Enables/Disables generation of source maps (https://github.com/futuri/liquid-loader#sourcemap).",
       "type": "boolean"
     },
     "webpackImporter": {
-      "description": "Enables/Disables default `webpack` importer (https://github.com/webpack-contrib/sass-loader#webpackimporter).",
+      "description": "Enables/Disables default `webpack` importer (https://github.com/futuri/liquid-loader#webpackimporter).",
       "type": "boolean"
+    },
+    "settingsData": {
+      "description": "Get setting_data.json.",
+      "type": "string"
     }
   },
   "additionalProperties": false

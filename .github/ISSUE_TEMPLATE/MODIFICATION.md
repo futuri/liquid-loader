@@ -18,7 +18,7 @@ about: Would you like something work differently? Have an alternative approach? 
 - Node Version:
 - NPM Version:
 - webpack Version:
-- sass-loader Version:
+- liquid-loader Version:
 
 ### Expected Behavior / Situation
 
